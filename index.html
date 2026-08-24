@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sales Dashboard</title>
+  <style>
+    #offline-notice {
+      display: none;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      min-height: 100vh;
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 99999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    }
+    .badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+    h1 { font-size: 22px; font-weight: 700; margin: 0 0 12px 0; color: #ffffff; }
+    p { color: #94a3b8; line-height: 1.6; font-size: 14px; margin: 0 0 24px 0; }
+    .bat-box {
+      background: #090d16;
+      border: 1px dashed #475569;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: #34d399;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #64748b;
+    }
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid #334155;
+      border-top-color: #34d399;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+  <script>
+    if (window.location.protocol === 'file:') {
+      function checkServer() {
+        fetch('http://localhost:3001/', { mode: 'no-cors' })
+          .then(function() {
+            window.location.href = 'http://localhost:3001/';
+          })
+          .catch(function() {
+            var el = document.getElementById('offline-notice');
+            if (el) el.style.display = 'flex';
+            setTimeout(checkServer, 1500);
+          });
+      }
+      checkServer();
+    } else {
+      window.location.href = 'http://localhost:3001/';
+    }
+  </script>
+</head>
+
+<body>
+  <div id="offline-notice">
+    <div class="card">
+      <div class="badge">SALES DASHBOARD SERVER OFFLINE</div>
+      <h1>Sales Dashboard</h1>
+      <p>To view your dashboard, double-click the <strong>start.bat</strong> file located in this folder to launch the Next.js server.</p>
+      <div class="bat-box">⚡ Double-click start.bat</div>
+      <div class="status">
+        <div class="spinner"></div>
+        Waiting for server on http://localhost:3001...
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
